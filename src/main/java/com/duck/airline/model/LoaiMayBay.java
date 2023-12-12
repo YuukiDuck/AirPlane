@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@Table(name = "loaimb")
+@Table(name = "loaimaybay")
 public class LoaiMayBay {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

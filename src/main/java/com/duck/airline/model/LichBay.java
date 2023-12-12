@@ -22,10 +22,10 @@ public class LichBay {
     private LocalDate ngayDi;
 
     @ManyToOne
-    @JoinColumn(name = "maCB")
+    @JoinColumn(name = "macb")
     private ChuyenBay chuyenBay;
 
     @ManyToOne
-    @JoinColumn(name = "soHieu")
+    @JoinColumn(name = "so_hieu")
     private MayBay mayBay;
 }

@@ -1,5 +1,6 @@
 package com.duck.airline.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,10 +20,12 @@ public class MayBay {
 
     private String soHieu;
 
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "maLoai")
+    @JoinColumn(name = "ma_loai")
     private LoaiMayBay loaiMayBay;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "mayBay")
     private List<LichBay> lichBayList;
 }

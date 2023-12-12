@@ -21,8 +21,8 @@ public class NhanVien {
     private Long id;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long maNV;
+
     private String ten;
     private String diaChi;
     private String dienThoai;
