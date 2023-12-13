@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface KhachHangRepository extends JpaRepository<KhachHang, Long> {
 
     Optional<KhachHang> findAllById(Long id);
+
+    Optional<KhachHang> findByEmail(String email);
 }
