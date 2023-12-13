@@ -4,6 +4,7 @@ import com.duck.airline.model.NhanVien;
 import com.duck.airline.service.NhanVienService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class NhanVienController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','NHANVIEN')")
     public ResponseEntity<NhanVien> createNhanVien(@RequestBody NhanVien nhanVien) {
         NhanVien createdNhanVien = nhanVienService.createNhanVien(nhanVien);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNhanVien);

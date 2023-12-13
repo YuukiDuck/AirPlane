@@ -5,6 +5,7 @@ import com.duck.airline.model.KhachHang;
 import com.duck.airline.service.KhachHangService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class KhachHangController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN','KHACHANG')")
     public ResponseEntity<KhachHang> createKhachHang(@RequestBody KhachHang khachHang) {
         KhachHang createdKhachHang = khachHangService.createKhachHang(khachHang);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdKhachHang);
