@@ -23,7 +23,7 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     @Override
     public Optional<KhachHang> getKhachHangById(Long id) {
-        return khachHangRepository.findAllById(id);
+        return khachHangRepository.findById(id);
     }
 
     @Override

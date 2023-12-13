@@ -26,27 +26,27 @@ public class KhachHangController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<KhachHang> getDatChoById(@PathVariable Long id) {
+    public ResponseEntity<KhachHang> getKhachHangById(@PathVariable Long id) {
         Optional<KhachHang> userOptional = khachHangService.getKhachHangById(id);
         return userOptional.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<KhachHang> createDatCho(@RequestBody KhachHang khachHang) {
-        KhachHang createdUser = khachHangService.createKhachHang(khachHang);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    public ResponseEntity<KhachHang> createKhachHang(@RequestBody KhachHang khachHang) {
+        KhachHang createdKhachHang = khachHangService.createKhachHang(khachHang);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdKhachHang);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<KhachHang> updateDatCho(@PathVariable Long id, @RequestBody KhachHang khachHang) {
+    public ResponseEntity<KhachHang> updateKhachHang(@PathVariable Long id, @RequestBody KhachHang khachHang) {
         khachHang.setId(id);
-        KhachHang updatedUser = khachHangService.updateKhachHang(khachHang);
-        return ResponseEntity.ok(updatedUser);
+        KhachHang updateKhachHang = khachHangService.updateKhachHang(khachHang);
+        return ResponseEntity.ok(updateKhachHang);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDatChoById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteKhachHangById(@PathVariable Long id) {
         khachHangService.deleteKhachHangById(id);
         return ResponseEntity.noContent().build();
     }

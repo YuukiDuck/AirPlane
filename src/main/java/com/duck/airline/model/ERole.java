@@ -1,7 +1,7 @@
 package com.duck.airline.model;
 
 public enum ERole {
-    ADMIN,
-    NHANVIEN,
-    NGUOIDUNG
+    ROLE_ADMIN,
+    ROLE_NHANVIEN,
+    ROLE_USER
 }
