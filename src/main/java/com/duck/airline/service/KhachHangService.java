@@ -15,5 +15,6 @@ public interface KhachHangService {
     KhachHang updateKhachHang(KhachHang khachHang);
 
     void deleteKhachHangById(Long id);
+
 }
 
