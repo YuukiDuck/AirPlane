@@ -37,9 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
             email = jwtService.decode(token).getSubject();
         } catch (Exception e) {
-            // Handle any exceptions related to token decoding or verification
-            // For example, SignatureException, ExpiredJwtException, etc.
-            // Log or handle the exception as appropriate for your application
+
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
