@@ -4,10 +4,11 @@ import com.duck.airline.dto.AuthRequestDto;
 import com.duck.airline.dto.AuthResponseDto;
 import com.duck.airline.model.ERole;
 import com.duck.airline.model.KhachHang;
-import com.duck.airline.model.NhanVien;
 import com.duck.airline.repository.KhachHangRepository;
-import com.duck.airline.repository.NhanVienRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,34 +20,28 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AuthService {
     private final KhachHangRepository khachHangRepository;
-    private final NhanVienRepository nhanVienRepository;
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthResponseDto register(AuthRequestDto requestDto) {
-        if (requestDto.getRole().equals("USER")) {
-            var khachhang = KhachHang.builder()
-                    .email(requestDto.getEmail())
-                    .password(passwordEncoder.encode(requestDto.getPassword()))
-                    .role(ERole.USER)
-                    .build();
+    @Autowired
+    public AuthService(KhachHangRepository khachHangRepository, PasswordEncoder passwordEncoder, JwtService jwtService, AuthenticationManager authenticationManager) {
+        this.khachHangRepository = khachHangRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+    }
 
-            khachHangRepository.save(khachhang);
+    public AuthResponseDto register(AuthRequestDto requestDto){
+        var khachhang = KhachHang.builder()
+                .email(requestDto.getEmail())
+                .password(passwordEncoder.encode(requestDto.getPassword()))
+                .role(ERole.USER)
+                .build();
 
-            return AuthResponseDto.builder().token(jwtService.generateToken(khachhang.getEmail())).build();
-        } else if (requestDto.getRole().equals("NHANVIEN")) {
-            var nhanVien = NhanVien.builder()
-                    .email(requestDto.getEmail())
-                    .password(passwordEncoder.encode(requestDto.getPassword()))
-                    .build();
+        khachHangRepository.save(khachhang);
 
-            nhanVienRepository.save(nhanVien);
-
-            return AuthResponseDto.builder().token(jwtService.generateToken(nhanVien.getEmail())).build();
-        }
-
-        return AuthResponseDto.builder().message("Lỗi khi đăng ký tài khoản").build();
+        return AuthResponseDto.builder().token(jwtService.generateToken(khachhang.getEmail())).build();
     }
 
     public AuthResponseDto login(AuthRequestDto requestDto) {
@@ -55,7 +50,7 @@ public class AuthService {
         return AuthResponseDto.builder().token(jwtService.generateToken(user.get().getEmail())).build();
     }
 
-    public boolean authenticateUser(String email, String password) {
+    public boolean authenticateKhachHang(String email, String password) {
         Optional<KhachHang> optionalUser = khachHangRepository.findByEmail(email);
 
         if (optionalUser.isPresent()) {

@@ -27,7 +27,11 @@ public class NhanVien {
     private double luong;
     private int loaiNV;
     private String email;
+    @Enumerated(EnumType.STRING)
+    private ERole role;
     @JsonIgnore
     private String password;
 
+    public void ERole(String admin) {
+    }
 }
