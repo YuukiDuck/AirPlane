@@ -15,14 +15,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/register")
-    public AuthResponseDto register(@RequestBody AuthRequestDto requestDto) {
-        return authService.register(requestDto);
+    @PostMapping("/register/khachhang")
+    public AuthResponseDto registerKhachHang(@RequestBody AuthRequestDto requestDto) {
+        return authService.registerKhachHang(requestDto);
+    }
+
+    @PostMapping("/register/nhanvien")
+    public AuthResponseDto registerNhanVien(@RequestBody AuthRequestDto requestDto) {
+        return authService.registerNhanVien(requestDto);
     }
 
 
-    @PostMapping("/login")
-    public AuthResponseDto login(@RequestBody AuthRequestDto requestDto) {
-        return authService.login(requestDto);
+    @PostMapping("/login/khachhang")
+    public AuthResponseDto loginKhachHang(@RequestBody AuthRequestDto requestDto) {
+        return authService.loginKhachHang(requestDto);
     }
+
+    @PostMapping("/login/nhanvien")
+    public AuthResponseDto loginNhanVien(@RequestBody AuthRequestDto requestDto) {
+        return authService.loginNhanVien(requestDto);
+    }
+
 }
