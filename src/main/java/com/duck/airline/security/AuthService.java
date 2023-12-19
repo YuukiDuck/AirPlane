@@ -53,22 +53,55 @@ public class AuthService {
     }
 
     public AuthResponseDto registerNhanVien(AuthRequestDto requestDto) {
-        var nhanVien = NhanVien.builder()
-                .email(requestDto.getEmail())
-                .password(passwordEncoder.encode(requestDto.getPassword()))
-                .role(ERole.NHANVIEN)
-                .build();
+        try {
+            String email = requestDto.getEmail();
+            String password = requestDto.getPassword();
 
-                nhanVienRepository.save(nhanVien);
+            if (email == null || password == null) {
+                return null;
+            }
+            if (nhanVienRepository.existsByEmail(email)) {
+                return null;
+            }
+            String encryptedPassword = passwordEncoder.encode(password);
+            NhanVien nhanVien = NhanVien.builder()
+                    .email(email)
+                    .password(encryptedPassword)
+                    .role(ERole.NHANVIEN)
+                    .build();
 
-                return AuthResponseDto.builder().token(jwtService.generateToken(nhanVien.getEmail())).build();
+            nhanVienRepository.save(nhanVien);
+            return new AuthResponseDto(jwtService.generateToken(nhanVien.getEmail()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
         }
+    }
 
     public AuthResponseDto loginNhanVien(AuthRequestDto requestDto) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword()));
-        var nhanVien = nhanVienRepository.findByEmail(requestDto.getEmail());
-        return AuthResponseDto.builder().token(jwtService.generateToken(nhanVien.get().getEmail())).build();
+        try {
+            String email = requestDto.getEmail();
+            String password = requestDto.getPassword();
+
+            if (email == null || password == null) {
+                return null;
+            }
+            Optional<NhanVien> nhanVienOptional = nhanVienRepository.findByEmail(email);
+            if (nhanVienOptional.isEmpty()) {
+                return null;
+            }
+            NhanVien nhanVien = nhanVienOptional.get();
+            if (!passwordEncoder.matches(password, nhanVien.getPassword())) {
+                return null;
+            }
+            return new AuthResponseDto(jwtService.generateToken(nhanVien.getEmail()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
+
+
 
     public boolean authenticateKhachHang(String email, String password) {
         Optional<KhachHang> optionalUser = khachHangRepository.findByEmail(email);

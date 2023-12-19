@@ -20,20 +20,18 @@ public class AuthController {
         return authService.registerKhachHang(requestDto);
     }
 
-    @PostMapping("/register/nhanvien")
-    public AuthResponseDto registerNhanVien(@RequestBody AuthRequestDto requestDto) {
-        return authService.registerNhanVien(requestDto);
-    }
-
-
     @PostMapping("/login/khachhang")
     public AuthResponseDto loginKhachHang(@RequestBody AuthRequestDto requestDto) {
         return authService.loginKhachHang(requestDto);
+    }
+
+    @PostMapping("/register/nhanvien")
+    public AuthResponseDto registerNhanVien(@RequestBody AuthRequestDto requestDto) {
+        return authService.registerNhanVien(requestDto);
     }
 
     @PostMapping("/login/nhanvien")
     public AuthResponseDto loginNhanVien(@RequestBody AuthRequestDto requestDto) {
         return authService.loginNhanVien(requestDto);
     }
-
 }

@@ -33,6 +33,4 @@ public class NhanVien implements Serializable {
     @JsonIgnore
     private String password;
 
-//    public void ERole(String admin) {
-//    }
 }
