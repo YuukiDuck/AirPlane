@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -14,8 +15,8 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-@Table(name = "NHANVIEN")
-public class NhanVien {
+@Table(name = "nhanvien")
+public class NhanVien implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -32,6 +33,6 @@ public class NhanVien {
     @JsonIgnore
     private String password;
 
-    public void ERole(String admin) {
-    }
+//    public void ERole(String admin) {
+//    }
 }

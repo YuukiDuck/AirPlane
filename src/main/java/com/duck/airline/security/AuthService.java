@@ -46,6 +46,12 @@ public class AuthService {
         return AuthResponseDto.builder().token(jwtService.generateToken(khachhang.getEmail())).build();
     }
 
+    public AuthResponseDto loginKhachHang(AuthRequestDto requestDto) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword()));
+        var khachHang = khachHangRepository.findByEmail(requestDto.getEmail());
+        return AuthResponseDto.builder().token(jwtService.generateToken(khachHang.get().getEmail())).build();
+    }
+
     public AuthResponseDto registerNhanVien(AuthRequestDto requestDto) {
         var nhanVien = NhanVien.builder()
                 .email(requestDto.getEmail())
@@ -57,12 +63,6 @@ public class AuthService {
 
                 return AuthResponseDto.builder().token(jwtService.generateToken(nhanVien.getEmail())).build();
         }
-
-    public AuthResponseDto loginKhachHang(AuthRequestDto requestDto) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword()));
-        var khachHang = khachHangRepository.findByEmail(requestDto.getEmail());
-        return AuthResponseDto.builder().token(jwtService.generateToken(khachHang.get().getEmail())).build();
-    }
 
     public AuthResponseDto loginNhanVien(AuthRequestDto requestDto) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword()));

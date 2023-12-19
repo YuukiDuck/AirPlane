@@ -8,9 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -19,7 +17,7 @@ import java.util.Set;
 @Setter
 @Builder
 @Table(name = "khachhang")
-public class KhachHang implements UserDetails {
+public class KhachHang implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -44,7 +42,6 @@ public class KhachHang implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private ERole role;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

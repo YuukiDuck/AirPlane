@@ -34,7 +34,7 @@ public class KhachHangController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','KHACHANG')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<KhachHang> createKhachHang(@RequestBody KhachHang khachHang) {
         KhachHang createdKhachHang = khachHangService.createKhachHang(khachHang);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdKhachHang);
