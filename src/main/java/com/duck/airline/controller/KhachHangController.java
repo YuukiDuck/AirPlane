@@ -21,12 +21,14 @@ public class KhachHangController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<KhachHang>> getAllKhachHang() {
         List<KhachHang> khachHang = khachHangService.getAllKhachHang();
         return ResponseEntity.ok(khachHang);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<KhachHang> getKhachHangById(@PathVariable Long id) {
         Optional<KhachHang> userOptional = khachHangService.getKhachHangById(id);
         return userOptional.map(ResponseEntity::ok)
@@ -41,6 +43,7 @@ public class KhachHangController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<KhachHang> updateKhachHang(@PathVariable Long id, @RequestBody KhachHang khachHang) {
         khachHang.setId(id);
         KhachHang updateKhachHang = khachHangService.updateKhachHang(khachHang);
@@ -48,6 +51,7 @@ public class KhachHangController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<Void> deleteKhachHangById(@PathVariable Long id) {
         khachHangService.deleteKhachHangById(id);
         return ResponseEntity.noContent().build();

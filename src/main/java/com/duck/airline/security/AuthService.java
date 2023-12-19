@@ -57,12 +57,10 @@ public class AuthService {
             String email = requestDto.getEmail();
             String password = requestDto.getPassword();
 
-            if (email == null || password == null) {
+            if (email == null || password == null || nhanVienRepository.existsByEmail(email)) {
                 return null;
             }
-            if (nhanVienRepository.existsByEmail(email)) {
-                return null;
-            }
+
             String encryptedPassword = passwordEncoder.encode(password);
             NhanVien nhanVien = NhanVien.builder()
                     .email(email)
@@ -86,22 +84,18 @@ public class AuthService {
             if (email == null || password == null) {
                 return null;
             }
+
             Optional<NhanVien> nhanVienOptional = nhanVienRepository.findByEmail(email);
-            if (nhanVienOptional.isEmpty()) {
+            if (nhanVienOptional.isEmpty() || !passwordEncoder.matches(password, nhanVienOptional.get().getPassword())) {
                 return null;
             }
-            NhanVien nhanVien = nhanVienOptional.get();
-            if (!passwordEncoder.matches(password, nhanVien.getPassword())) {
-                return null;
-            }
-            return new AuthResponseDto(jwtService.generateToken(nhanVien.getEmail()));
+
+            return new AuthResponseDto(jwtService.generateToken(email));
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
     }
-
-
 
     public boolean authenticateKhachHang(String email, String password) {
         Optional<KhachHang> optionalUser = khachHangRepository.findByEmail(email);
