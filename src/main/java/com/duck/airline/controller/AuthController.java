@@ -2,6 +2,7 @@ package com.duck.airline.controller;
 
 import com.duck.airline.dto.AuthRequestDto;
 import com.duck.airline.dto.AuthResponseDto;
+import com.duck.airline.dto.NhanVienRequestDto;
 import com.duck.airline.security.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,12 +27,13 @@ public class AuthController {
     }
 
     @PostMapping("/register/nhanvien")
-    public AuthResponseDto registerNhanVien(@RequestBody AuthRequestDto requestDto) {
-        return authService.registerNhanVien(requestDto);
+    public AuthResponseDto registerNhanVien(@RequestBody NhanVienRequestDto nhanVienRequestDto) {
+        return authService.registerNhanVien(nhanVienRequestDto);
     }
 
     @PostMapping("/login/nhanvien")
-    public AuthResponseDto loginNhanVien(@RequestBody AuthRequestDto requestDto) {
-        return authService.loginNhanVien(requestDto);
+    public AuthResponseDto loginNhanVien(@RequestBody NhanVienRequestDto nhanVienRequestDto) {
+        return authService.loginNhanVien(nhanVienRequestDto);
     }
+
 }

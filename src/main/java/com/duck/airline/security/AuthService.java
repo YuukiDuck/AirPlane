@@ -2,6 +2,7 @@ package com.duck.airline.security;
 
 import com.duck.airline.dto.AuthRequestDto;
 import com.duck.airline.dto.AuthResponseDto;
+import com.duck.airline.dto.NhanVienRequestDto;
 import com.duck.airline.model.ERole;
 import com.duck.airline.model.KhachHang;
 import com.duck.airline.model.NhanVien;
@@ -52,7 +53,7 @@ public class AuthService {
         return AuthResponseDto.builder().token(jwtService.generateToken(khachHang.get().getEmail())).build();
     }
 
-    public AuthResponseDto registerNhanVien(AuthRequestDto requestDto) {
+    public AuthResponseDto registerNhanVien(NhanVienRequestDto requestDto) {
         try {
             String email = requestDto.getEmail();
             String password = requestDto.getPassword();
@@ -76,7 +77,7 @@ public class AuthService {
         }
     }
 
-    public AuthResponseDto loginNhanVien(AuthRequestDto requestDto) {
+    public AuthResponseDto loginNhanVien(NhanVienRequestDto requestDto) {
         try {
             String email = requestDto.getEmail();
             String password = requestDto.getPassword();
@@ -96,6 +97,7 @@ public class AuthService {
             return null;
         }
     }
+
 
     public boolean authenticateKhachHang(String email, String password) {
         Optional<KhachHang> optionalUser = khachHangRepository.findByEmail(email);

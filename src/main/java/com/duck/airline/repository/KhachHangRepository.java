@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface KhachHangRepository extends JpaRepository<KhachHang, Long> {
 
-    Optional<KhachHang> findByEmail(String username);
+    Optional<KhachHang> findByEmail(String email);
 }
