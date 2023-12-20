@@ -20,14 +20,14 @@ public class NhanVienController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','NHANVIEN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<NhanVien>> getAllNhanVien() {
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
         return ResponseEntity.ok(nhanViens);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','NHANVIEN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<NhanVien> getNhanVienById(@PathVariable Long id) {
         Optional<NhanVien> nhanVienOptional = nhanVienService.getNhanVienById(id);
         return nhanVienOptional.map(ResponseEntity::ok)
@@ -35,14 +35,14 @@ public class NhanVienController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN','NHANVIEN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<NhanVien> createNhanVien(@RequestBody NhanVien nhanVien) {
         NhanVien createdNhanVien = nhanVienService.createNhanVien(nhanVien);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNhanVien);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','NHANVIEN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<NhanVien> updateNhanVien(@PathVariable Long id, @RequestBody NhanVien nhanVien) {
         nhanVien.setId(id);
         NhanVien updatedNhanVien = nhanVienService.updateNhanVien(nhanVien);

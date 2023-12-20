@@ -28,7 +28,7 @@ public class KhachHangController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<KhachHang> getKhachHangById(@PathVariable Long id) {
         Optional<KhachHang> userOptional = khachHangService.getKhachHangById(id);
         return userOptional.map(ResponseEntity::ok)

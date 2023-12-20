@@ -1,12 +1,16 @@
 package com.duck.airline.filter;
 
+import com.duck.airline.model.ERole;
 import com.duck.airline.security.JwtService;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +19,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -33,24 +41,36 @@ public class JwtFilter extends OncePerRequestFilter {
 
         final String token = authHeader.substring(7);
         String email = null;
+        Set<ERole> roles = null;
 
         try {
-            email = jwtService.decode(token).getSubject();
+            Claims claims = jwtService.decode(token);
+            email = claims.getSubject();
+            // Lấy danh sách vai trò từ token
+            roles = new HashSet<>(claims.get("roles", List.class));
         } catch (Exception e) {
-
+            // Xử lý lỗi giải mã token
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
             if (!jwtService.isExpired(token)) {
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
+                // Kiểm tra xem người dùng có vai trò ROLE_ADMIN hay không
+                if (roles != null && roles.contains(ERole.ADMIN)) {
+                    // Nếu có vai trò ROLE_ADMIN, thực hiện hành động tương ứng
+                    // Ví dụ: Set quyền admin vào authentication token
+                    List<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
+                    authorities.add(new SimpleGrantedAuthority(ERole.ADMIN.name()));
+                    authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+                }
+
+                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
 
         filterChain.doFilter(request, response);
     }
 }
-
-
