@@ -32,5 +32,6 @@ public class NhanVien implements Serializable {
     private ERole role;
     @JsonIgnore
     private String password;
-
+//    @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL)
+//    private List<PhanCong> danhSachPhanCong;
 }

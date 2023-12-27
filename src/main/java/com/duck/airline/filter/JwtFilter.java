@@ -46,21 +46,15 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
             Claims claims = jwtService.decode(token);
             email = claims.getSubject();
-            // Lấy danh sách vai trò từ token
             roles = new HashSet<>(claims.get("roles", List.class));
         } catch (Exception e) {
-            // Xử lý lỗi giải mã token
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(email);
             if (!jwtService.isExpired(token)) {
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-                // Kiểm tra xem người dùng có vai trò ROLE_ADMIN hay không
                 if (roles != null && roles.contains(ERole.ADMIN)) {
-                    // Nếu có vai trò ROLE_ADMIN, thực hiện hành động tương ứng
-                    // Ví dụ: Set quyền admin vào authentication token
                     List<GrantedAuthority> authorities = new ArrayList<>(userDetails.getAuthorities());
                     authorities.add(new SimpleGrantedAuthority(ERole.ADMIN.name()));
                     authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
@@ -70,7 +64,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }
