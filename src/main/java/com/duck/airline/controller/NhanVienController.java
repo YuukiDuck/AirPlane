@@ -20,14 +20,14 @@ public class NhanVienController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<NhanVien>> getAllNhanVien() {
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
         return ResponseEntity.ok(nhanViens);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<NhanVien> getNhanVienById(@PathVariable Long id) {
         Optional<NhanVien> nhanVienOptional = nhanVienService.getNhanVienById(id);
         return nhanVienOptional.map(ResponseEntity::ok)
@@ -50,7 +50,7 @@ public class NhanVienController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMIN','NHANVIEN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Void> deleteNhanVienById(@PathVariable Long id) {
         nhanVienService.deleteNhanVienById(id);
         return ResponseEntity.noContent().build();

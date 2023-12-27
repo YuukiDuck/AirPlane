@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface NhanVienService {
     List<NhanVien> getAllNhanVien();
 
+//    List<NhanVien> findAllNhanVienWithPhanCong();
+
     Optional<NhanVien> getNhanVienById(Long id);
 
     NhanVien createNhanVien(NhanVien nhanVien);

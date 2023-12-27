@@ -18,6 +18,11 @@ private final NhanVienRepository nhanVienRepository;
         return nhanVienRepository.findAll();
     }
 
+//    @Override
+//    public List<NhanVien> findAllNhanVienWithPhanCong() {
+//        return nhanVienRepository.findAllNhanVienWithPhanCong();
+//    }
+
     @Override
     public Optional<NhanVien> getNhanVienById(Long id) {
         return nhanVienRepository.findById(id);
