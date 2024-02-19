@@ -6,27 +6,21 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Builder
-@Table(name = "maybay")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "MAYBAY")
 public class MayBay {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
+    @Id
+    @Column(name = "SOHIEU")
     private String soHieu;
 
-    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "ma_loai")
+    @JoinColumn(name = "MALOAI")
     private LoaiMayBay loaiMayBay;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "mayBay")
-    private List<LichBay> lichBayList;
 }
 

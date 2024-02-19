@@ -1,6 +1,10 @@
 package com.duck.airline.service.impl;
 
+import com.duck.airline.dto.MayBayDto;
+import com.duck.airline.exception.NotFoundException;
+import com.duck.airline.model.LoaiMayBay;
 import com.duck.airline.model.MayBay;
+import com.duck.airline.repository.LoaiMayBayRepository;
 import com.duck.airline.repository.MayBayRepository;
 import com.duck.airline.service.MayBayService;
 import lombok.AllArgsConstructor;
@@ -12,19 +16,29 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class MayBayServiceImpl implements MayBayService {
-private final MayBayRepository mayBayRepository;
+    private final MayBayRepository mayBayRepository;
+    private final MayBayDto mayBayDto;
+    private final LoaiMayBayRepository loaiMayBayRepository;
+
     @Override
     public List<MayBay> getAllMayBay() {
         return mayBayRepository.findAll();
     }
 
     @Override
-    public Optional<MayBay> getMayBayById(Long id) {
-        return mayBayRepository.findById(id);
+    public Optional<MayBay> getMayBayById(Long soHieu) {
+        return mayBayRepository.findById(soHieu);
     }
 
     @Override
-    public MayBay createMayBay(MayBay mayBay) {
+    public MayBay createMayBay(MayBayDto mayBayDTO) {
+        LoaiMayBay loaiMayBay = loaiMayBayRepository.findById(mayBayDTO.getIdLoaiMayBay())
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy loại máy bay"));
+
+        MayBay mayBay = new MayBay();
+        mayBay.setSoHieu(mayBayDTO.getSoHieu());
+        mayBay.setLoaiMayBay(loaiMayBay);
+
         return mayBayRepository.save(mayBay);
     }
 
@@ -34,7 +48,7 @@ private final MayBayRepository mayBayRepository;
     }
 
     @Override
-    public void deleteMayBayById(Long id) {
-        mayBayRepository.deleteById(id);
+    public void deleteMayBayById(Long soHieu) {
+        mayBayRepository.deleteById(soHieu);
     }
 }

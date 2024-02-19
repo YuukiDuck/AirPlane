@@ -39,9 +39,4 @@ public class PhanCongServiceImpl implements PhanCongService {
     public void deletePhanCongById(Long id) {
         phanCongRepository.deleteById(id);
     }
-
-//    @Override
-//    public List<PhanCong> getDanhSachPhanCongByNhanVienId(Long nhanVienId) {
-//        return null;
-//    }
 }

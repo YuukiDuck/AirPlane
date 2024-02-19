@@ -5,29 +5,28 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @Builder
-@Table(name = "datcho")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "DATCHO")
 public class DatCho {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "maKH") // Khóa ngoại liên kết đến bảng KhachHang
+    @JoinColumn(name = "MAKH")
     private KhachHang khachHang;
 
     private LocalDate ngayDi;
 
     @ManyToOne
-    @JoinColumn(name = "maCB") // Khóa ngoại liên kết đến bảng ChuyenBay
+    @JoinColumn(name = "MACB") // Khóa ngoại liên kết đến bảng ChuyenBay
     private ChuyenBay chuyenBay;
-
-    // Getters, setters và constructors
 }
 

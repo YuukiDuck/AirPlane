@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class LichBayServiceImpl implements LichBayService {
-private LichBayRepository lichBayRepository;
+    private LichBayRepository lichBayRepository;
     @Override
     public List<LichBay> getAllLichBay() {
         return lichBayRepository.findAll();

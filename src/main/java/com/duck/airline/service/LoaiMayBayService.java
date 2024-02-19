@@ -8,12 +8,12 @@ import java.util.Optional;
 public interface LoaiMayBayService {
     List<LoaiMayBay> getAllLoaiMayBay();
 
-    Optional<LoaiMayBay> getLoaiMayBayById(Long id);
+    Optional<LoaiMayBay> getLoaiMayBayById(Long maLoai);
 
     LoaiMayBay createLoaiMayBay(LoaiMayBay loaiMayBay);
 
     LoaiMayBay updateLoaiMayBay(LoaiMayBay loaiMayBay);
 
-    void deleteLoaiMayBayById(Long id);
+    void deleteLoaiMayBayById(Long maLoai);
 }
 

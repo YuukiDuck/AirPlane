@@ -21,8 +21,8 @@ public class ChuyenBayServiceImpl implements ChuyenBayService {
     }
 
     @Override
-    public Optional<ChuyenBay> getUserById(Long id) {
-        return chuyenBayRepository.findById(id);
+    public Optional<ChuyenBay> getChuyenBayById(String maCB) {
+        return chuyenBayRepository.findById(maCB);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ChuyenBayServiceImpl implements ChuyenBayService {
     }
 
     @Override
-    public void deleteChuyenBayById(Long id) {
-        chuyenBayRepository.deleteAllById(id);
+    public void deleteChuyenBayByMaCB(String maCB) {
+        chuyenBayRepository.deleteChuyenBayByMaCB(maCB);
     }
 }

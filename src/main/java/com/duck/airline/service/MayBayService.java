@@ -1,5 +1,6 @@
 package com.duck.airline.service;
 
+import com.duck.airline.dto.MayBayDto;
 import com.duck.airline.model.MayBay;
 
 import java.util.List;
@@ -9,12 +10,12 @@ import java.util.Optional;
 public interface MayBayService {
     List<MayBay> getAllMayBay();
 
-    Optional<MayBay> getMayBayById(Long id);
+    Optional<MayBay> getMayBayById(Long soHieu);
 
-    MayBay createMayBay(MayBay mayBay);
+    MayBay createMayBay(MayBayDto mayBayDto);
 
     MayBay updateMayBay(MayBay mayBay);
 
-    void deleteMayBayById(Long id);
+    void deleteMayBayById(Long soHieu);
 }
 

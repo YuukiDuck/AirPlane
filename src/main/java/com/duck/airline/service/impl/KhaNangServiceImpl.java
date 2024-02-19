@@ -13,7 +13,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class KhaNangServiceImpl implements KhaNangService {
-private final KhaNangRepository khaNangRepository;
+    private final KhaNangRepository khaNangRepository;
     @Override
     public List<KhaNang> getAllKhaNang() {
         return khaNangRepository.findAll();

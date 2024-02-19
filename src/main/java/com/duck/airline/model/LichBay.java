@@ -4,25 +4,28 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
-
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Builder
-@Table(name = "lichbay")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "LICHBAY")
 public class LichBay {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    private LocalDate ngayDi;
+    @Column(name = "NGAYDI")
+    private Date ngayDi;
 
-    @ManyToOne
-    @JoinColumn(name = "macb")
+    @OneToOne
+    @JoinColumn(name = "MACB")
     private ChuyenBay chuyenBay;
 
     @ManyToOne

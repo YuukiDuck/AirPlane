@@ -9,11 +9,11 @@ import java.util.Optional;
 public interface ChuyenBayService {
     List<ChuyenBay> getAllChuyenBay();
 
-    Optional<ChuyenBay> getUserById(Long id );
+    Optional<ChuyenBay> getChuyenBayById(String maCB );
 
     ChuyenBay createChuyenBay(ChuyenBay chuyenBay);
 
     ChuyenBay updateChuyenBay(ChuyenBay chuyenBay);
 
-    void deleteChuyenBayById(Long id);
+    void deleteChuyenBayByMaCB(String maCB);
 }

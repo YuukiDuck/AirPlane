@@ -1,6 +1,8 @@
 package com.duck.airline.config;
 
+import com.duck.airline.dto.MayBayDto;
 import com.duck.airline.repository.KhachHangRepository;
+import com.duck.airline.repository.NhanVienRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class AppConfig {
     private final KhachHangRepository khachHangRepository;
+    private final NhanVienRepository nhanVienRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -41,6 +44,10 @@ public class AppConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
+    }
+    @Bean
+    public MayBayDto mayBayDto() {
+        return new MayBayDto();
     }
 
 }

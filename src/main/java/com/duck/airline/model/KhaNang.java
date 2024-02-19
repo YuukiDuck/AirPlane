@@ -14,16 +14,15 @@ import java.util.List;
 @Table(name = "khanang")
 public class KhaNang {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "maNV")
+    @JoinColumn(name = "MANV")
     private NhanVien nhanVien;
 
     @ManyToOne
-    @JoinColumn(name = "maLoai")
+    @JoinColumn(name = "MALOAI")
     private LoaiMayBay loaiMayBay;
-
-    // Getters, setters và constructors
 }

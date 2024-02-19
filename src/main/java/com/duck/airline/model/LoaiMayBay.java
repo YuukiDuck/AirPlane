@@ -6,25 +6,25 @@ import lombok.*;
 import java.util.List;
 import java.util.Set;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Builder
-@Table(name = "loaimaybay")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "LOAIMB")
 public class LoaiMayBay {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MALOAI")
     private Long maLoai;
+
+    @Column(name = "HANGSX")
     private String hangSanXuat;
 
-    @OneToMany(mappedBy = "loaiMayBay")
-    private List<MayBay> mayBayList;
-
-
+    @ManyToMany(mappedBy = "loaiMayBay")
+    private List<NhanVien> nhanViens;
 }
 
 

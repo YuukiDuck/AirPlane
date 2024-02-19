@@ -16,6 +16,6 @@ public interface NhanVienService {
 
     NhanVien updateNhanVien(NhanVien nhanVien);
 
-    void deleteNhanVienById(Long id);
+    void deleteNhanVienById(Long maNV);
 }
 

@@ -5,27 +5,29 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 @Getter
 @Setter
-@Builder
-@Table(name = "phancong")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "PHANCONG")
 public class PhanCong {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "maNV")
-    private NhanVien nhanVien;
-
+    @Column(name = "NGAYDI")
     private LocalDate ngayDi;
 
     @ManyToOne
-    @JoinColumn(name = "maCB")
-    private ChuyenBay chuyenBay;
+    @JoinColumn(name = "MANV")
+    private NhanVien nhanVien;
 
+    @ManyToOne
+    @JoinColumn(name = "MACB")
+    private ChuyenBay chuyenBay;
 }
 

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class NhanVienServiceImpl implements NhanVienService {
-private final NhanVienRepository nhanVienRepository;
+    private final NhanVienRepository nhanVienRepository;
     @Override
     public List<NhanVien> getAllNhanVien() {
         return nhanVienRepository.findAll();
@@ -24,8 +24,8 @@ private final NhanVienRepository nhanVienRepository;
 //    }
 
     @Override
-    public Optional<NhanVien> getNhanVienById(Long id) {
-        return nhanVienRepository.findById(id);
+    public Optional<NhanVien> getNhanVienById(Long maNV) {
+        return nhanVienRepository.findById(maNV);
     }
 
     @Override
@@ -39,7 +39,7 @@ private final NhanVienRepository nhanVienRepository;
     }
 
     @Override
-    public void deleteNhanVienById(Long id) {
-        nhanVienRepository.deleteById(id);
+    public void deleteNhanVienById(Long maNV) {
+        nhanVienRepository.deleteById(maNV);
     }
 }

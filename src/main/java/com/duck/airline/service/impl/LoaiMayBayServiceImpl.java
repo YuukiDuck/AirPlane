@@ -12,15 +12,15 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class LoaiMayBayServiceImpl implements LoaiMayBayService {
-private final LoaiMayBayRepository loaiMayBayRepository;
+    private final LoaiMayBayRepository loaiMayBayRepository;
     @Override
     public List<LoaiMayBay> getAllLoaiMayBay() {
         return loaiMayBayRepository.findAll();
     }
 
     @Override
-    public Optional<LoaiMayBay> getLoaiMayBayById(Long id) {
-        return loaiMayBayRepository.findById(id);
+    public Optional<LoaiMayBay> getLoaiMayBayById(Long maLoai) {
+        return loaiMayBayRepository.findById(maLoai);
     }
 
     @Override
@@ -34,7 +34,7 @@ private final LoaiMayBayRepository loaiMayBayRepository;
     }
 
     @Override
-    public void deleteLoaiMayBayById(Long id) {
-        loaiMayBayRepository.deleteById(id);
+    public void deleteLoaiMayBayById(Long maLoai) {
+        loaiMayBayRepository.deleteById(maLoai);
     }
 }

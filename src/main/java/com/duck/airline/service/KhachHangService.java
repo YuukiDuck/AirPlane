@@ -8,13 +8,13 @@ import java.util.Optional;
 public interface KhachHangService {
     List<KhachHang> getAllKhachHang();
 
-    Optional<KhachHang> getKhachHangById(Long id);
+    Optional<KhachHang> getKhachHangById(Long maKH);
 
     KhachHang createKhachHang(KhachHang khachHang);
 
     KhachHang updateKhachHang(KhachHang khachHang);
 
-    void deleteKhachHangById(Long id);
+    void deleteKhachHangById(Long maKH);
 
 }
 

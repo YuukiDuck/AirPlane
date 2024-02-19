@@ -22,8 +22,8 @@ public class KhachHangServiceImpl implements KhachHangService {
     }
 
     @Override
-    public Optional<KhachHang> getKhachHangById(Long id) {
-        return khachHangRepository.findById(id);
+    public Optional<KhachHang> getKhachHangById(Long maKH) {
+        return khachHangRepository.findById(maKH);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class KhachHangServiceImpl implements KhachHangService {
     }
 
     @Override
-    public void deleteKhachHangById(Long id) {
-        khachHangRepository.deleteById(id);
+    public void deleteKhachHangById(Long maKH) {
+        khachHangRepository.deleteById(maKH);
     }
 }

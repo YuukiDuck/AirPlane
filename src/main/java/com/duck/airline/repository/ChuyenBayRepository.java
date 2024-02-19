@@ -4,8 +4,9 @@ import com.duck.airline.model.ChuyenBay;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, Long> {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    void deleteAllById(Long maCB);
+public interface ChuyenBayRepository extends JpaRepository<ChuyenBay, String> {
+    void deleteChuyenBayByMaCB(String maCB); // Thay vì deleteById, sử dụng deleteChuyenBayByMaCB
 }
+

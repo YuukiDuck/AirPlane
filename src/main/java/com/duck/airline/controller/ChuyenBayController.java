@@ -26,8 +26,8 @@ public class ChuyenBayController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ChuyenBay> getChuyenBayById(@PathVariable Long id) {
-        Optional<ChuyenBay> userOptional = chuyenBayService.getUserById(id);
+    public ResponseEntity<ChuyenBay> getChuyenBayById(@PathVariable String maCB) {
+        Optional<ChuyenBay> userOptional = chuyenBayService.getChuyenBayById(maCB);
         return userOptional.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -39,16 +39,16 @@ public class ChuyenBayController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ChuyenBay> updateUser(@PathVariable long id, @RequestBody ChuyenBay chuyenBay) {
-        chuyenBay.setId(id);
-        ChuyenBay updateChuyenBay = chuyenBayService.updateChuyenBay(chuyenBay);
-        return ResponseEntity.ok(updateChuyenBay);
+    public ResponseEntity<ChuyenBay> updateChuyenBay(@PathVariable String maCB, @RequestBody ChuyenBay chuyenBay) {
+        chuyenBay.setMaCB(maCB);
+        ChuyenBay updatedChuyenBay = chuyenBayService.updateChuyenBay(chuyenBay);
+        return ResponseEntity.ok(updatedChuyenBay);
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
-    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
-        chuyenBayService.deleteChuyenBayById(id);
+    public ResponseEntity<Void> deleteChuyenBayByMaCB(@PathVariable String maCB) {
+        chuyenBayService.deleteChuyenBayByMaCB(maCB);
         return ResponseEntity.noContent().build();
     }
+
 }

@@ -1,5 +1,6 @@
 package com.duck.airline.controller;
 
+import com.duck.airline.exception.AccessDeniedException;
 import com.duck.airline.model.NhanVien;
 import com.duck.airline.service.NhanVienService;
 import org.springframework.http.HttpStatus;
@@ -20,18 +21,18 @@ public class NhanVienController {
     }
 
     @GetMapping
-//    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<List<NhanVien>> getAllNhanVien() {
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
         return ResponseEntity.ok(nhanViens);
     }
 
     @GetMapping("/{id}")
-//    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<NhanVien> getNhanVienById(@PathVariable Long id) {
         Optional<NhanVien> nhanVienOptional = nhanVienService.getNhanVienById(id);
         return nhanVienOptional.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseThrow(() -> new AccessDeniedException("Access denied for role ADMIN"));
     }
 
     @PostMapping
@@ -43,17 +44,16 @@ public class NhanVienController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<NhanVien> updateNhanVien(@PathVariable Long id, @RequestBody NhanVien nhanVien) {
-        nhanVien.setId(id);
+    public ResponseEntity<NhanVien> updateNhanVien(@PathVariable Long maNV, @RequestBody NhanVien nhanVien) {
+        nhanVien.setMaNV(maNV);
         NhanVien updatedNhanVien = nhanVienService.updateNhanVien(nhanVien);
         return ResponseEntity.ok(updatedNhanVien);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN')")
-    public ResponseEntity<Void> deleteNhanVienById(@PathVariable Long id) {
-        nhanVienService.deleteNhanVienById(id);
+    public ResponseEntity<Void> deleteNhanVienById(@PathVariable Long maNV) {
+        nhanVienService.deleteNhanVienById(maNV);
         return ResponseEntity.noContent().build();
     }
 }
-

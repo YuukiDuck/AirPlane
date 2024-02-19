@@ -70,7 +70,8 @@ public class AuthService {
                     .build();
 
             nhanVienRepository.save(nhanVien);
-            return new AuthResponseDto(jwtService.generateToken(nhanVien.getEmail()));
+            AuthResponseDto authResponseDto = new AuthResponseDto(jwtService.generateToken(nhanVien.getEmail()));
+            return authResponseDto;
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
@@ -97,7 +98,6 @@ public class AuthService {
             return null;
         }
     }
-
 
     public boolean authenticateKhachHang(String email, String password) {
         Optional<KhachHang> optionalUser = khachHangRepository.findByEmail(email);

@@ -38,10 +38,10 @@ public class LoaiMayBayController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LoaiMayBay> updateLoaiMayBay(@PathVariable Long id, @RequestBody LoaiMayBay loaiMayBay) {
-        loaiMayBay.setId(id);
-        LoaiMayBay updateLoaiMayBay = loaiMayBayService.updateLoaiMayBay(loaiMayBay);
-        return ResponseEntity.ok(updateLoaiMayBay);
+    public ResponseEntity<LoaiMayBay> updateLoaiMayBay(@PathVariable Long maLoai, @RequestBody LoaiMayBay loaiMayBay) {
+        loaiMayBay.setMaLoai(maLoai);
+        LoaiMayBay updatedLoaiMayBay = loaiMayBayService.updateLoaiMayBay(loaiMayBay);
+        return ResponseEntity.ok(updatedLoaiMayBay);
     }
 
     @DeleteMapping("/{id}")

@@ -35,5 +35,4 @@ public class AuthController {
     public AuthResponseDto loginNhanVien(@RequestBody NhanVienRequestDto nhanVienRequestDto) {
         return authService.loginNhanVien(nhanVienRequestDto);
     }
-
 }

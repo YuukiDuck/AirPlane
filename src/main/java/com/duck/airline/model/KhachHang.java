@@ -19,29 +19,26 @@ import java.util.List;
 @Table(name = "khachhang")
 public class KhachHang implements UserDetails{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "makh")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MAKH")
     private Long maKH;
 
-    @Column(name = "ten")
+    @Column(name = "TEN")
     private String ten;
-
-    @Column(name = "dia_chi")
-    private String diaChi;
-
-    @Column(name = "dien_thoai")
-    private String dienThoai;
 
     @Column(name = "email")
     private String email;
 
+    @OneToMany(mappedBy = "khachHang")
+    private List<DatCho> danhSachDatCho;
+
     @JsonIgnore
+    @Column(name = "password")
     private String password;
+
     @Enumerated(EnumType.STRING)
     private ERole role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
